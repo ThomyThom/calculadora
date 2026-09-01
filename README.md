@@ -1,5 +1,7 @@
 # Calculadora Multifuncional
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+
 Uma pequena calculadora web em HTML, CSS e JavaScript para realizar operações básicas: soma, subtração, multiplicação e divisão (com tratamento de divisão por zero).
 
 ## Tecnologias
@@ -52,4 +54,6 @@ Em seguida, acesse http://localhost:8000 no navegador (se usar servidor).
 Pull requests são bem-vindos. Abra uma issue antes de alterações maiores.
 
 ## Licença
-Se quiser, adicione um arquivo LICENSE (por exemplo MIT) para tornar o projeto aberto para uso e contribuição.
+Este projeto está licenciado sob a Licença MIT — veja o arquivo [LICENSE](./LICENSE) para mais detalhes.
+
+Copyright (c) 2026 ThomyThom
