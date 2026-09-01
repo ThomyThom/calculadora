@@ -3,9 +3,9 @@
     --card-bg: #181a20;
     --input-bg: #22252e;
     --btn-bg: #2c303e;
-    --btn-active: #3c4255;
+    --btn-hover: #3c4255;
+    --fn-btn-bg: #262933;
     --accent-color: #5686f5;
-    --accent-active: #4071e1;
     --text-primary: #ffffff;
     --text-secondary: #8f96a3;
     --error-color: #ff5252;
@@ -30,18 +30,18 @@ body {
 
 .calculadora {
     background: var(--card-bg);
-    padding: 28px;
+    padding: 24px;
     width: 100%;
     max-width: 360px;
     border-radius: 32px;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 16px;
 }
 
 .header h1 {
-    font-size: 1.25rem;
+    font-size: 1.1rem;
     font-weight: 600;
     color: var(--text-secondary);
     text-align: center;
@@ -50,83 +50,72 @@ body {
 .display-container {
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 10px;
 }
 
-.input-group {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-}
-
-.input-group label {
-    font-size: 0.8rem;
-    font-weight: 500;
-    color: var(--text-secondary);
-    margin-left: 4px;
-}
-
-.input-group input {
+#expressao {
     width: 100%;
     padding: 14px 16px;
     background: var(--input-bg);
     border: 2px solid transparent;
     border-radius: 16px;
-    font-size: 1.1rem;
+    font-size: 1.3rem;
     font-weight: 600;
     color: var(--text-primary);
     outline: none;
-    transition: border-color 0.2s ease, background 0.2s ease;
+    letter-spacing: 1px;
+    transition: border-color 0.2s ease;
 }
 
-.input-group input:focus {
+#expressao:focus {
     border-color: var(--accent-color);
-    background: #282c37;
-}
-
-/* Remove as setinhas padrão do input number */
-input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button { 
-    -webkit-appearance: none;
-    margin: 0;
 }
 
 .resultado-box {
     background: linear-gradient(135deg, #1f232e, #161820);
-    padding: 18px 20px;
-    border-radius: 20px;
+    padding: 14px 18px;
+    border-radius: 18px;
     text-align: right;
-    margin-top: 6px;
     border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .resultado-label {
     display: block;
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     text-transform: uppercase;
     letter-spacing: 1px;
     color: var(--text-secondary);
-    margin-bottom: 4px;
 }
 
 #resultado {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     font-weight: 700;
     color: var(--accent-color);
     word-break: break-all;
+    min-height: 2rem;
 }
 
 #resultado.erro {
     color: var(--error-color);
-    font-size: 1.1rem;
+    font-size: 0.95rem;
 }
 
-/* Grade de Botões com Efeito Touch */
+/* Animação do resultado */
+@keyframes popResultado {
+    0% { transform: scale(0.96); }
+    50% { transform: scale(1.03); box-shadow: 0 0 20px rgba(86, 134, 245, 0.4); }
+    100% { transform: scale(1); }
+}
+
+.resultado-box.animar {
+    animation: popResultado 0.3s ease-out;
+}
+
+/* Teclado 4x5 */
 .botoes {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
-    margin-top: 8px;
+    gap: 10px;
 }
 
 .btn {
@@ -135,46 +124,37 @@ input[type=number]::-webkit-outer-spin-button {
     border-radius: 50%;
     background: var(--btn-bg);
     color: var(--text-primary);
-    font-size: 1.6rem;
-    font-weight: 500;
+    font-size: 1.3rem;
+    font-weight: 600;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     user-select: none;
-    transition: transform 0.12s cubic-bezier(0.2, 0, 0, 1), background-color 0.15s ease;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    transition: transform 0.1s cubic-bezier(0.2, 0, 0, 1), background-color 0.15s ease;
 }
 
-/* Animação estilo Samsung (Scale Down + Color Shift) */
-.btn:hover {
-    background: var(--btn-active);
-}
+.btn:hover { background: var(--btn-hover); }
 
 .btn:active {
     transform: scale(0.88);
     background: var(--accent-color);
+}
+
+.fn-btn {
+    background: var(--fn-btn-bg);
+    color: var(--accent-color);
+}
+
+.op-btn {
+    color: var(--accent-color);
+}
+
+.eq-btn {
+    background: var(--accent-color);
     color: #ffffff;
-    box-shadow: 0 0 15px rgba(86, 134, 245, 0.4);
 }
 
-/* Animação para a caixa de resultado */
-@keyframes popResultado {
-    0% {
-        transform: scale(0.96);
-        box-shadow: 0 0 0 rgba(86, 134, 245, 0);
-    }
-    50% {
-        transform: scale(1.04);
-        box-shadow: 0 0 25px rgba(86, 134, 245, 0.5);
-    }
-    100% {
-        transform: scale(1);
-        box-shadow: 0 0 0 rgba(86, 134, 245, 0);
-    }
-}
-
-/* Classe aplicada via JS ao calcular */
-.resultado-box.animar {
-    animation: popResultado 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+.eq-btn:hover {
+    background: #4473e3;
 }

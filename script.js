@@ -1,66 +1,80 @@
-function obterValores() {
-    const n1 = document.getElementById('numero1').value;
-    const n2 = document.getElementById('numero2').value;
-    return {
-        num1: Number(n1),
-        num2: Number(n2),
-        valido: n1 !== '' && n2 !== ''
-    };
-}
+const expressaoInput = document.getElementById('expressao');
+const resultadoElement = document.getElementById('resultado');
+const resultadoBox = document.querySelector('.resultado-box');
 
-function dispararAnimacao() {
-    const box = document.querySelector('.resultado-box');
-    // Remove a classe para reiniciar a animação se clicar consecutivamente
-    box.classList.remove('animar');
-    // Força o reflow do navegador
-    void box.offsetWidth;
-    // Adiciona a classe de animação
-    box.classList.add('animar');
-}
+// 1. Filtro de Input: Bloqueia a digitação de caracteres não matemáticos
+expressaoInput.addEventListener('beforeinput', (e) => {
+    // Permite apenas números, +, -, *, /, %, (, ), ., , e espaço
+    // Também permite ações de apagar ou colar (e.inputType)
+    const caracterePermitido = /^[0-9+\-*/%().,\s]$/;
 
-function exibirResultado(valor, eErro = false) {
-    const resElement = document.getElementById('resultado');
-    
-    if (eErro) {
-        resElement.classList.add('erro');
-        resElement.innerText = valor;
-    } else {
-        resElement.classList.remove('erro');
-        // Formata números decimais longos para não quebrar a tela
-        const resultadoFormatado = Number.isInteger(valor) ? valor : parseFloat(valor.toFixed(4));
-        resElement.innerText = resultadoFormatado;
+    if (e.data && !caracterePermitido.test(e.data)) {
+        e.preventDefault(); // Impede o caractere de aparecer no input
     }
+});
 
-    // Dispara o efeito visual na caixa
-    dispararAnimacao();
+// Escuta a digitação direta no teclado para calcular em tempo real
+expressaoInput.addEventListener('input', () => {
+    // Normaliza vírgula para ponto caso o usuário digite vírgula
+    expressaoInput.value = expressaoInput.value.replace(/,/g, '.');
+    calcularAoVivo();
+});
+
+function adicionar(caractere) {
+    expressaoInput.value += caractere;
+    expressaoInput.focus();
+    calcularAoVivo();
 }
 
-function somar() {
-    const { num1, num2, valido } = obterValores();
-    if (!valido) return exibirResultado('Preencha os campos', true);
-    exibirResultado(num1 + num2);
+function limpar() {
+    expressaoInput.value = '';
+    resultadoElement.innerText = '0';
+    resultadoElement.classList.remove('erro');
+    expressaoInput.focus();
 }
 
-function subtrair() {
-    const { num1, num2, valido } = obterValores();
-    if (!valido) return exibirResultado('Preencha os campos', true);
-    exibirResultado(num1 - num2);
+function apagar() {
+    expressaoInput.value = expressaoInput.value.slice(0, -1);
+    expressaoInput.focus();
+    calcularAoVivo();
 }
 
-function multiplicar() {
-    const { num1, num2, valido } = obterValores();
-    if (!valido) return exibirResultado('Preencha os campos', true);
-    exibirResultado(num1 * num2);
-}
+function calcularAoVivo() {
+    const expr = expressaoInput.value.trim();
 
-function dividir() {
-    const { num1, num2, valido } = obterValores();
-    if (!valido) return exibirResultado('Preencha os campos', true);
-    
-    if (num2 === 0) {
-        exibirResultado('Divisão por zero!', true);
+    if (!expr) {
+        resultadoElement.innerText = '0';
+        resultadoElement.classList.remove('erro');
         return;
     }
-    
-    exibirResultado(num1 / num2);
+
+    try {
+        // Normaliza operadores visuais para operadores válidos no JS
+        const expressaoSanitizada = expr
+            .replace(/×/g, '*')
+            .replace(/÷/g, '/');
+
+        // 2. Trava de segurança extra: rejeita a avaliação se houver qualquer coisa além da White-list matemática
+        if (/[^0-9+\-*/().\s]/.test(expressaoSanitizada)) {
+            return;
+        }
+
+        // Avaliação segura da expressão matemática
+        const res = Function(`"use strict"; return (${expressaoSanitizada})`)();
+
+        if (res !== undefined && !isNaN(res) && isFinite(res)) {
+            resultadoElement.classList.remove('erro');
+            const formatado = Number.isInteger(res) ? res : parseFloat(res.toFixed(4));
+            resultadoElement.innerText = formatado;
+        }
+    } catch (e) {
+        // Silencia erros de sintaxe enquanto o usuário ainda está digitando a fórmula
+    }
+}
+
+function calcularFinal() {
+    calcularAoVivo();
+    resultadoBox.classList.remove('animar');
+    void resultadoBox.offsetWidth;
+    resultadoBox.classList.add('animar');
 }

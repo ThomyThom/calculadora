@@ -16,16 +16,7 @@
         </header>
         
         <div class="display-container">
-            <div class="input-group">
-                <label for="numero1">Número 1</label>
-                <input type="number" id="numero1" placeholder="0" autocomplete="off">
-            </div>
-            
-            <div class="input-group">
-                <label for="numero2">Número 2</label>
-                <input type="number" id="numero2" placeholder="0" autocomplete="off">
-            </div>
-            
+            <input type="text" id="expressao" placeholder="0" autocomplete="off">
             <div class="resultado-box">
                 <span class="resultado-label">Resultado</span>
                 <h2 id="resultado">0</h2>
@@ -33,10 +24,35 @@
         </div>
 
         <div class="botoes">
-            <button class="btn op-btn" onclick="somar()">+</button>
-            <button class="btn op-btn" onclick="subtrair()">−</button>
-            <button class="btn op-btn" onclick="multiplicar()">×</button>
-            <button class="btn op-btn" onclick="dividir()">÷</button>
+            <!-- Linha 1: Limpeza e Parênteses -->
+            <button class="btn fn-btn" onclick="limpar()">C</button>
+            <button class="btn fn-btn" onclick="adicionar('(')">(</button>
+            <button class="btn fn-btn" onclick="adicionar(')')">)</button>
+            <button class="btn op-btn" onclick="adicionar('/')">÷</button>
+
+            <!-- Linha 2 -->
+            <button class="btn" onclick="adicionar('7')">7</button>
+            <button class="btn" onclick="adicionar('8')">8</button>
+            <button class="btn" onclick="adicionar('9')">9</button>
+            <button class="btn op-btn" onclick="adicionar('*')">×</button>
+
+            <!-- Linha 3 -->
+            <button class="btn" onclick="adicionar('4')">4</button>
+            <button class="btn" onclick="adicionar('5')">5</button>
+            <button class="btn" onclick="adicionar('6')">6</button>
+            <button class="btn op-btn" onclick="adicionar('-')">−</button>
+
+            <!-- Linha 4 -->
+            <button class="btn" onclick="adicionar('1')">1</button>
+            <button class="btn" onclick="adicionar('2')">2</button>
+            <button class="btn" onclick="adicionar('3')">3</button>
+            <button class="btn op-btn" onclick="adicionar('+')">+</button>
+
+            <!-- Linha 5 -->
+            <button class="btn fn-btn" onclick="apagar()">⌫</button>
+            <button class="btn" onclick="adicionar('0')">0</button>
+            <button class="btn" onclick="adicionar('.')">.</button>
+            <button class="btn eq-btn" onclick="calcularFinal()">=</button>
         </div>
     </div>
     <script src="script.js"></script>
