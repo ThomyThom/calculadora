@@ -1,0 +1,23 @@
+name: Draft or Publish Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*' # Exemplo: v1.0.0, v1.1.0-beta.1
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # Permissão necessária para criar Releases
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Criar Release ou Pre-release
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+          # Marcar como prerelease automaticamente se o nome da tag contiver 'beta', 'alpha' ou 'rc'
+          prerelease: ${{ contains(github.ref_name, 'beta') || contains(github.ref_name, 'alpha') || contains(github.ref_name, 'rc') }}
