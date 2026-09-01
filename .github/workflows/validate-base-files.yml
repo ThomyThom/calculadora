@@ -1,0 +1,35 @@
+name: Automação da Calculadora
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  verificar-projeto:
+    name: Validar Estrutura e Código
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar o código do projeto
+        uses: actions/checkout@v4
+
+      - name: Verificar estrutura dos arquivos
+        run: |
+          echo "Verificando arquivos principais..."
+          test -f index.html || { echo "::error::index.html não encontrado"; exit 1; }
+          test -f style.css  || { echo "::error::style.css não encontrado"; exit 1; }
+          test -f script.js || { echo "::error::script.js não encontrado"; exit 1; }
+          echo "Todos os arquivos principais estão presentes."
+
+      - name: Validar sintaxe do JavaScript
+        run: |
+          echo "Verificando se há erros de sintaxe no script.js..."
+          node -c script.js
+
+      - name: Gerar Relatório de Sucesso
+        run: |
+          echo "### 🚀 Calculadora Multifuncional" >> $GITHUB_STEP_SUMMARY
+          echo "✓ Estrutura de arquivos verificada com sucesso." >> $GITHUB_STEP_SUMMARY
+          echo "✓ Sintaxe do JavaScript validada." >> $GITHUB_STEP_SUMMARY
