@@ -4,40 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculadora Multifuncional</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="calculadora">
-        <header class="header">
-            <h1>Calculadora</h1>
-        </header>
-        
-        <div class="display-container">
-            <div class="input-group">
-                <label for="numero1">Número 1</label>
-                <input type="number" id="numero1" placeholder="0" autocomplete="off">
-            </div>
-            
-            <div class="input-group">
-                <label for="numero2">Número 2</label>
-                <input type="number" id="numero2" placeholder="0" autocomplete="off">
-            </div>
-            
-            <div class="resultado-box">
-                <span class="resultado-label">Resultado</span>
-                <h2 id="resultado">0</h2>
-            </div>
-        </div>
-
+        <h1>Calculadora Multifuncional</h1>
+        <label>Número 1</label>
+        <input type="number" id="numero1">
+        <label>Número 2</label>
+        <input type="number" id="numero2">
         <div class="botoes">
-            <button class="btn op-btn" onclick="somar()">+</button>
-            <button class="btn op-btn" onclick="subtrair()">−</button>
-            <button class="btn op-btn" onclick="multiplicar()">×</button>
-            <button class="btn op-btn" onclick="dividir()">÷</button>
+            <button onclick="somar()">Somar</button>
+            <button onclick="subtrair()">Subtrair</button>
+            <button onclick="multiplicar()">Multiplicar</button>
+            <button onclick="dividir()">Dividir</button>
         </div>
+        <h2 id="resultado">Resultado:</h2>
     </div>
     <script src="script.js"></script>
 </body>

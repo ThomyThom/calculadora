@@ -1,180 +1,61 @@
-:root {
-    --bg-color: #0d0e12;
-    --card-bg: #181a20;
-    --input-bg: #22252e;
-    --btn-bg: #2c303e;
-    --btn-active: #3c4255;
-    --accent-color: #5686f5;
-    --accent-active: #4071e1;
-    --text-primary: #ffffff;
-    --text-secondary: #8f96a3;
-    --error-color: #ff5252;
-}
-
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Inter', sans-serif;
-    -webkit-tap-highlight-color: transparent;
 }
 
 body {
-    background-color: var(--bg-color);
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f4f4f4;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
-    padding: 20px;
+    height: 100vh;
 }
 
 .calculadora {
-    background: var(--card-bg);
-    padding: 28px;
-    width: 100%;
-    max-width: 360px;
-    border-radius: 32px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+    background: white;
+    padding: 30px;
+    width: 350px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
 }
 
-.header h1 {
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: var(--text-secondary);
+h1 {
     text-align: center;
+    margin-bottom: 20px;
+    user-select: none;
 }
 
-.display-container {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-}
-
-.input-group {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-}
-
-.input-group label {
-    font-size: 0.8rem;
-    font-weight: 500;
-    color: var(--text-secondary);
-    margin-left: 4px;
-}
-
-.input-group input {
-    width: 100%;
-    padding: 14px 16px;
-    background: var(--input-bg);
-    border: 2px solid transparent;
-    border-radius: 16px;
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: var(--text-primary);
-    outline: none;
-    transition: border-color 0.2s ease, background 0.2s ease;
-}
-
-.input-group input:focus {
-    border-color: var(--accent-color);
-    background: #282c37;
-}
-
-/* Remove as setinhas padrão do input number */
-input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button { 
-    -webkit-appearance: none;
-    margin: 0;
-}
-
-.resultado-box {
-    background: linear-gradient(135deg, #1f232e, #161820);
-    padding: 18px 20px;
-    border-radius: 20px;
-    text-align: right;
-    margin-top: 6px;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.resultado-label {
+label {
     display: block;
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: var(--text-secondary);
-    margin-bottom: 4px;
+    margin-top: 15px;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    color: #333;
+}
+
+.botoes {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    color: #333;
+    user-select: none;
+}
+
+button {
+    width: 48%;
+    padding: 10px;
+    cursor: pointer;
+    color: #333;
 }
 
 #resultado {
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: var(--accent-color);
-    word-break: break-all;
-}
-
-#resultado.erro {
-    color: var(--error-color);
-    font-size: 1.1rem;
-}
-
-/* Grade de Botões com Efeito Touch */
-.botoes {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
-    margin-top: 8px;
-}
-
-.btn {
-    aspect-ratio: 1 / 1;
-    border: none;
-    border-radius: 50%;
-    background: var(--btn-bg);
-    color: var(--text-primary);
-    font-size: 1.6rem;
-    font-weight: 500;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    user-select: none;
-    transition: transform 0.12s cubic-bezier(0.2, 0, 0, 1), background-color 0.15s ease;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-}
-
-/* Animação estilo Samsung (Scale Down + Color Shift) */
-.btn:hover {
-    background: var(--btn-active);
-}
-
-.btn:active {
-    transform: scale(0.88);
-    background: var(--accent-color);
-    color: #ffffff;
-    box-shadow: 0 0 15px rgba(86, 134, 245, 0.4);
-}
-
-/* Animação para a caixa de resultado */
-@keyframes popResultado {
-    0% {
-        transform: scale(0.96);
-        box-shadow: 0 0 0 rgba(86, 134, 245, 0);
-    }
-    50% {
-        transform: scale(1.04);
-        box-shadow: 0 0 25px rgba(86, 134, 245, 0.5);
-    }
-    100% {
-        transform: scale(1);
-        box-shadow: 0 0 0 rgba(86, 134, 245, 0);
-    }
-}
-
-/* Classe aplicada via JS ao calcular */
-.resultado-box.animar {
-    animation: popResultado 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    margin-top: 25px;
+    text-align: center;
+    color: #333;
 }
